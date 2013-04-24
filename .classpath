@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="E:/ENV/Android/android-sdk/platforms/android-7/android.jar"/>
+	<classpathentry kind="src" path="gluegen-junit"/>
+	<classpathentry excluding="net/" kind="src" path="gluegen-java"/>
+	<classpathentry kind="src" path="newt-classes"/>
+	<classpathentry kind="src" path="nativewindowgensrc-classes"/>
+	<classpathentry kind="src" path="nativewindow-classes"/>
+	<classpathentry kind="src" path="gensrc-classes"/>
+	<classpathentry kind="src" path="jogl-classes"/>
 	<classpathentry kind="lib" path="lib/vecmath.jar" sourcepath="/vecmath"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.8.2.v20130124-134944.jar"/>
+	<classpathentry kind="lib" path="lib/ant-junit.jar"/>
+	<classpathentry kind="lib" path="lib/ant.jar"/>
+	<classpathentry kind="lib" path="lib/guava-14.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/riadh/git/openGLEngine/jogl/gluegen/build/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/riadh/git/openGLEngine/jogl/gluegen/build/antlr.jar"/>
+	<classpathentry kind="lib" path="C:/Users/riadh/git/openGLEngine/jogl/gluegen/make/lib/junit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

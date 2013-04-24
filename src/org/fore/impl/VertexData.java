@@ -6,8 +6,6 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.microedition.khronos.opengles.GL;
-import javax.microedition.khronos.opengles.GL10;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector3f;
 

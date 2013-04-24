@@ -3,14 +3,14 @@ package org.fore.impl;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-import javax.microedition.khronos.opengles.GL10;
+import javax.media.opengl.GLBase;
 
 import org.fore.IData;
 
 public abstract class Data implements IData {
 	enum RenderingMode {
 
-		RM_POINTS(GL10.GL_POINTS), RM_LINE_STRIP(GL10.GL_LINE_STRIP), RM_LINE_LOOP(
+		RM_POINTS(GLBase.GL_POINTS), RM_LINE_STRIP(GL10.GL_LINE_STRIP), RM_LINE_LOOP(
 				GL10.GL_LINE_LOOP), RM_LINES(GL10.GL_LINES), RM_TRIANGLE_STRIP(
 				GL10.GL_TRIANGLE_STRIP), RM_TRIANGLE_FAN(GL10.GL_TRIANGLE_FAN), RM_TRIANGLES(
 				GL10.GL_TRIANGLES);

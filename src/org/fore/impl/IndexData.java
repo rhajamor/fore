@@ -6,8 +6,7 @@ import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.microedition.khronos.opengles.GL;
-import javax.microedition.khronos.opengles.GL10;
+import javax.media.opengl.GLBase;
 
 import org.fore.IIndexData;
 
@@ -20,7 +19,7 @@ public class IndexData extends Data implements IIndexData {
 	}
 
 	@Override
-	public void bind(GL gl) throws BufferError {
+	public void bind(GLBase gl) throws BufferError {
 		if (indices.isEmpty())
 			throw new BufferError("No index data found !");
 		indexBuffer = ByteBuffer.allocateDirect(indices.size() * 2);
@@ -31,7 +30,7 @@ public class IndexData extends Data implements IIndexData {
 		/*
 		 * this is do rendering
 		 */
-		((GL10) gl).glDrawElements(renderingMode.value(), getNumIndices(),
+		 gl.glDrawElements(renderingMode.value(), getNumIndices(),
 				GL10.GL_UNSIGNED_SHORT, indBuffer);
 	}
 
