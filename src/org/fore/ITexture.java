@@ -1,6 +1,5 @@
 package org.fore;
 
-import android.graphics.Bitmap;
 
 /*
  * OpenGL ES support  GL10.GL_TEXTURE_2D
@@ -25,7 +24,7 @@ public interface ITexture extends IResource {
 
 	public void prepareTexture(TextureUsage usage, int mipmap, int format);
 
-	public void loadImage(TextureUsage usage, Bitmap bitmap);
+	public void loadImage(TextureUsage usage, byte[] bitmap);
 
 	public void unloadImage();
 

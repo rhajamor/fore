@@ -14,4 +14,46 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>gensrc-classes</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/build/jogl/gensrc/classes</location>
+		</link>
+		<link>
+			<name>gluegen-java</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/gluegen/src/java</location>
+		</link>
+		<link>
+			<name>gluegen-junit</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/gluegen/src/junit</location>
+		</link>
+		<link>
+			<name>jogl-classes</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/src/jogl/classes</location>
+		</link>
+		<link>
+			<name>nativewindow-classes</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/src/nativewindow/classes</location>
+		</link>
+		<link>
+			<name>nativewindowgensrc-classes</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/build/nativewindow/gensrc/classes</location>
+		</link>
+		<link>
+			<name>newt-classes</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/src/newt/classes</location>
+		</link>
+		<link>
+			<name>test</name>
+			<type>2</type>
+			<location>C:/Users/riadh/git/openGLEngine/jogl/jogl/src/test</location>
+		</link>
+	</linkedResources>
 </projectDescription>

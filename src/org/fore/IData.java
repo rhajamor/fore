@@ -2,7 +2,7 @@ package org.fore;
 
 import java.nio.Buffer;
 
-import javax.microedition.khronos.opengles.GL;
+import javax.media.opengl.GLBase;
 
 import org.fore.impl.BufferError;
 
@@ -12,7 +12,8 @@ public interface IData {
 		DT_INDEX, // normal, 3 reals per vertex
 		DT_POSITION, // Position, 3 reals per vertex.
 		DT_NORMAL, // Normal, 3 reals per vertex.
-		DT_COLOR, DT_TEXTURE_COORDINATES, // Texture coordinates.
+		DT_COLOR, //colour
+		DT_TEXTURE_COORDINATES, // Texture coordinates.
 	};
 
 	public enum BufferType {
@@ -25,7 +26,7 @@ public interface IData {
 
 	public void clearDataBuffer(DataType dataType);
 
-	public void bind(GL gl) throws BufferError;
+	public void bind(GLBase gl) throws BufferError;
 
 	public void destroy();
 
