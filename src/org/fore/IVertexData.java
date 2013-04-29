@@ -1,27 +1,48 @@
 package org.fore;
 
-import javax.vecmath.Point2f;
+import java.util.List;
+
+import javax.vecmath.Point2i;
 import javax.vecmath.Vector3f;
 
-public interface IVertexData extends IData {
-	
-	
-	public void addVertex(Vector3f vertex);
+public interface IVertexData extends IData
+{
 
-	public void addVertex(float x, float y, float z);
+	void setVertices(List<Vector3f> vertices);
 
-	public void addTextCoord(Point2f uv);
+	void setNormals(List<Vector3f> normals);
 
-	public void addTextCoord(float u, float v);
+	void normalizeNormals();
 
-	public void addTextCoord(short u, short v);
+	void computeNormals();
 
-	public void addNormal(Vector3f normal);
+	void setTextureCoords(List<Point2i> textCoords);
 
-	public void addNormal(float x, float y, float z);
+	void setColors(List<IColor> colors);
 
-	public void addColor(IColor color);
+	void addVertex(Vector3f vertex);
 
-	public void addColor(float r, float g, float b, float a);
+	void addVertex(float x, float y, float z);
 
+	void addTextCoord(Point2i uv);
+
+	void addTextCoord(short u, short v);
+
+	void addNormal(Vector3f normal);
+
+	void addNormal(float x, float y, float z);
+
+	void addColor(IColor color);
+
+	void addColor(float r, float g, float b, float a);
+
+	void addColor(long rgba);
+
+	int getNumVertices();
+
+	int getNumNormals();
+
+	int getNumTextureCoords();
+
+	int getNumColors();
 }

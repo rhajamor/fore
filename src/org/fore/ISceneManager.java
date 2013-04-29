@@ -8,6 +8,7 @@ import javax.vecmath.Vector3f;
 import org.fore.ILight.LightType;
 
 public interface ISceneManager extends IResourceManager {
+	
 	public ILight createLight(String name);
 
 	public ILight createLight(String name, LightType lightType);

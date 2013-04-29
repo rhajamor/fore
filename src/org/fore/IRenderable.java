@@ -1,5 +1,7 @@
 package org.fore;
 
+import javax.media.opengl.GL;
+
 public interface IRenderable extends IMovableObject, IResource, INode {
 
 	public void setMaterial(IMaterial material);
@@ -15,5 +17,7 @@ public interface IRenderable extends IMovableObject, IResource, INode {
 	public boolean isVisible();
 
 	public boolean isLoaded();
+	
+	void render(GL gl);
 
 }

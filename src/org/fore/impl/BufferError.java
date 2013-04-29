@@ -1,20 +1,27 @@
 package org.fore.impl;
 
-public class BufferError extends Throwable {
+public class BufferError extends Throwable
+{
 
-	public BufferError() {
+	private static final long serialVersionUID = 1L;
+
+	public BufferError()
+	{
 		super();
 	}
 
-	public BufferError(String msg) {
+	public BufferError(String msg)
+	{
 		super(msg);
 	}
 
-	public BufferError(String msg, Throwable throwable) {
+	public BufferError(String msg, Throwable throwable)
+	{
 		super(msg, throwable);
 	}
 
-	public BufferError(Throwable throwable) {
+	public BufferError(Throwable throwable)
+	{
 		super(throwable);
 	}
 

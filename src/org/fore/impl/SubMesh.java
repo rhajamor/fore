@@ -14,60 +14,81 @@ import org.fore.IVertexData;
 import org.fore.impl.Math.Matrix4;
 
 public class SubMesh extends MovableObject implements ISubMesh {
-
+	
+	private RenderingMode renderingMode;
 	private IVertexData vertexData;
 	private IIndexData indexData;
 	private IMesh parent;
 
-	protected SubMesh(String name) {
+	protected SubMesh(String name)
+	{
 		super(name, "SubMesh");
 	}
 
-	protected SubMesh(String name, IMesh parent) {
+	protected SubMesh(String name, IMesh parent)
+	{
 		super(name, "SubMesh");
 		this.parent = parent;
 	}
 
 	protected SubMesh(String name, IMesh parent, Quat4f o, Vector3f p,
-			Vector3f s) {
+			Vector3f s)
+	{
 		super(name, "SubMesh", o, p, s);
 		this.parent = parent;
 	}
 
 	@Override
-	public void setParent(IMesh mesh) {
+	public void setParent(IMesh mesh)
+	{
 		this.parent = mesh;
 	}
 
 	@Override
-	public IMesh getParent() {
+	public IMesh getParent()
+	{
 		return parent;
 	}
 
 	@Override
-	public void setVertexData(IVertexData data) {
+	public void setVertexData(IVertexData data)
+	{
 		this.vertexData = data;
 	}
 
 	@Override
-	public IVertexData getVertexData() {
+	public IVertexData getVertexData()
+	{
 		return vertexData;
 	}
 
 	@Override
-	public void setIndexData(IIndexData indexData) {
+	public void setIndexData(IIndexData indexData)
+	{
 		this.indexData = indexData;
 	}
 
 	@Override
-	public IIndexData getIndexData() {
+	public IIndexData getIndexData()
+	{
 		return this.indexData;
 	}
+	
+	public RenderingMode getRenderingMode()
+	{
+		return renderingMode;
+	}
 
+	public void setRenderingMode(RenderingMode renderingMode)
+	{
+		this.renderingMode = renderingMode;
+	}
 	@Override
-	public void update() {
+	public void update()
+	{
 		super.update();
-		if (vertexData != null) {
+		if (vertexData != null)
+		{
 			FloatBuffer vBuffer = (FloatBuffer) vertexData.getDataBuffer(
 					DataType.DT_POSITION, BufferType.BT_FLOAT);
 			FloatBuffer nBuffer = (FloatBuffer) vertexData.getDataBuffer(
@@ -75,13 +96,15 @@ public class SubMesh extends MovableObject implements ISubMesh {
 			float[] pValue = new float[3];
 			int pos = 0;
 			boolean hasNormals = nBuffer.limit() > 0;
-			while (pos < (vBuffer.limit() - 3)) {
+			while (pos < (vBuffer.limit() - 3))
+			{
 				vBuffer.get(pValue);
 				Vector3f vr = ((Matrix4) fullTransformMatrix).mul(new Vector3f(
 						pValue));
 				vr.get(pValue);
 				vBuffer.put(pValue, pos, 3);// update buffer
-				if (hasNormals) {
+				if (hasNormals)
+				{
 					nBuffer.get(pValue);
 					vr = ((Matrix4) fullTransformMatrix).mul(new Vector3f(
 							pValue));
@@ -97,13 +120,16 @@ public class SubMesh extends MovableObject implements ISubMesh {
 	}
 
 	@Override
-	public void destroy() {
+	public void destroy()
+	{
 		super.destroy();
-		if (vertexData != null) {
+		if (vertexData != null)
+		{
 			vertexData.destroy();
 			vertexData = null;
 		}
-		if (indexData != null) {
+		if (indexData != null)
+		{
 			indexData.destroy();
 			indexData = null;
 		}
