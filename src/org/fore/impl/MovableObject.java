@@ -9,7 +9,8 @@ import org.fore.impl.Math.Matrix4;
 import org.fore.impl.Math.Quaternion;
 import org.fore.impl.Math.Vector3;
 
-public class MovableObject extends Resource implements IMovableObject {
+public class MovableObject extends Resource implements IMovableObject
+{
 
 	protected Matrix4f fullTransformMatrix = new Matrix4();
 	protected Matrix4f transformMatrix = new Matrix4();
@@ -17,26 +18,31 @@ public class MovableObject extends Resource implements IMovableObject {
 	protected Vector3f position;
 	protected Vector3f scale;
 
-	public MovableObject(String name) {
-		this(name, "MovableObject", new Quaternion(0, 0, 0, 1), new Vector3(0,
-				0, 0), new Vector3(1, 1, 1));
+	public MovableObject(String name)
+	{
+		this(name, "MovableObject", Quaternion.getIdentity(),
+				Vector3.getZero(), Vector3.getUnit());
 	}
 
-	public MovableObject(String name, String type) {
-		this(name, type, new Quaternion(0, 0, 0, 1), new Vector3(0, 0, 0),
-				new Vector3(1, 1, 1));
+	public MovableObject(String name, String type)
+	{
+		this(name, type, Quaternion.getIdentity(), Vector3.getZero(), Vector3
+				.getUnit());
 	}
 
-	public MovableObject(String name, Quat4f o, Vector3f p) {
-		this(name, "MovableObject", o, p, new Vector3f(1, 1, 1));
+	public MovableObject(String name, Quat4f o, Vector3f p)
+	{
+		this(name, "MovableObject", o, p, Vector3.getUnit());
 	}
 
-	public MovableObject(String name, String type, Quat4f o, Vector3f p) {
-		this(name, type, o, p, new Vector3f(1, 1, 1));
+	public MovableObject(String name, String type, Quat4f o, Vector3f p)
+	{
+		this(name, type, o, p, Vector3.getUnit());
 	}
 
 	public MovableObject(String name, String type, Quat4f o, Vector3f p,
-			Vector3f s) {
+			Vector3f s)
+	{
 		super(name, type);
 		setOrientation(o);
 		setPosition(p);
@@ -45,8 +51,10 @@ public class MovableObject extends Resource implements IMovableObject {
 
 	@Override
 	public void setTransformationMatrix(Matrix4f matrix4f,
-			TransformationType transformationType) {
-		switch (transformationType) {
+			TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			this.transformMatrix.set(matrix4f);
 			break;
@@ -58,8 +66,10 @@ public class MovableObject extends Resource implements IMovableObject {
 
 	@Override
 	public void setOrientation(Quat4f orientation,
-			TransformationType transformationType) {
-		switch (transformationType) {
+			TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			setOrientation(orientation);
 			break;
@@ -70,8 +80,10 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public void setScale(Vector3f scale, TransformationType transformationType) {
-		switch (transformationType) {
+	public void setScale(Vector3f scale, TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			setScale(scale);
 			break;
@@ -84,8 +96,10 @@ public class MovableObject extends Resource implements IMovableObject {
 
 	@Override
 	public void setPosition(Vector3f position,
-			TransformationType transformationType) {
-		switch (transformationType) {
+			TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			this.position.set(position);
 			break;
@@ -97,8 +111,9 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public void update() {
-		//
+	public void update()
+	{
+
 		// Matrix4f m = new Matrix4f(transformMatrix);
 		// m.mul(parent.getTransformationMatrix(TransformationType.TT_WORLD));
 		// fullTransformMatrix.set(m);
@@ -107,11 +122,14 @@ public class MovableObject extends Resource implements IMovableObject {
 
 	@Override
 	public Matrix4f getTransformationMatrix(
-			TransformationType transformationType) {
-		switch (transformationType) {
+			TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			return new Matrix4f(transformMatrix);
-		case TT_WORLD: {
+		case TT_WORLD:
+		{
 			return new Matrix4f(fullTransformMatrix);
 		}
 		}
@@ -119,11 +137,14 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public Quat4f getOrientation(TransformationType transformationType) {
-		switch (transformationType) {
+	public Quat4f getOrientation(TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			return new Quat4f(orientation);
-		case TT_WORLD: {
+		case TT_WORLD:
+		{
 			Quat4f retVal = new Quat4f(0, 0, 0, 1);
 			fullTransformMatrix.get(retVal);
 			return retVal;
@@ -133,11 +154,14 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public Vector3f getScale(TransformationType transformationType) {
-		switch (transformationType) {
+	public Vector3f getScale(TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			return new Vector3f(scale);
-		case TT_WORLD: {
+		case TT_WORLD:
+		{
 			float s = fullTransformMatrix.getScale();
 			return new Vector3f(s, s, s);
 		}
@@ -146,11 +170,14 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public Vector3f getPosition(TransformationType transformationType) {
-		switch (transformationType) {
+	public Vector3f getPosition(TransformationType transformationType)
+	{
+		switch (transformationType)
+		{
 		case TT_LOCAL:
 			return new Vector3f(position);
-		case TT_WORLD: {
+		case TT_WORLD:
+		{
 			Vector3f retVal = new Vector3f();
 			fullTransformMatrix.get(retVal);
 			return retVal;
@@ -160,50 +187,59 @@ public class MovableObject extends Resource implements IMovableObject {
 	}
 
 	@Override
-	public void setTransformationMatrix(Matrix4f matrix4f) {
+	public void setTransformationMatrix(Matrix4f matrix4f)
+	{
 		this.transformMatrix.set(matrix4f);
 	}
 
 	@Override
-	public void setOrientation(Quat4f orientation) {
+	public void setOrientation(Quat4f orientation)
+	{
 		this.orientation.set(orientation);
 		this.transformMatrix.set(orientation);
 	}
 
 	@Override
-	public void setScale(Vector3f scale) {
+	public void setScale(Vector3f scale)
+	{
 		this.scale.set(scale);
 		this.transformMatrix.set(scale.x);
 	}
 
 	@Override
-	public void setPosition(Vector3f position) {
+	public void setPosition(Vector3f position)
+	{
 		this.position.set(position);
 		this.transformMatrix.set(position);
 	}
 
 	@Override
-	public Matrix4f getTransformationMatrix() {
+	public Matrix4f getTransformationMatrix()
+	{
 		return new Matrix4f(transformMatrix);
 	}
 
 	@Override
-	public Quat4f getOrientation() {
+	public Quat4f getOrientation()
+	{
 		return new Quat4f(orientation);
 	}
 
 	@Override
-	public Vector3f getScale() {
+	public Vector3f getScale()
+	{
 		return new Vector3f(scale);
 	}
 
 	@Override
-	public Vector3f getPosition() {
+	public Vector3f getPosition()
+	{
 		return new Vector3f(position);
 	}
 
 	@Override
-	public void destroy() {
+	public void destroy()
+	{
 		this.fullTransformMatrix = null;
 		this.transformMatrix = null;
 		this.orientation = null;

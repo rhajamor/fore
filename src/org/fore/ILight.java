@@ -2,9 +2,11 @@ package org.fore;
 
 import javax.vecmath.Vector3f;
 
-public interface ILight extends IMovableObject, IResource, INode {
+public interface ILight extends IMovableObject, IResource, INode
+{
 
-	public enum LightType {
+	public enum LightType
+	{
 		LT_POINT, LT_SPOT, LT_DIRECTIONAL
 	}
 

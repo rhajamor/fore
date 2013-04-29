@@ -4,10 +4,12 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-public interface IMovableObject extends IResource {
+public interface IMovableObject extends IResource
+{
 
-	enum TransformationType {
-		TT_WORLD, TT_LOCAL
+	enum TransformationType
+	{
+		TT_LOCAL, TT_WORLD
 	}
 
 	public void setTransformationMatrix(Matrix4f matrix4f,

@@ -1,15 +1,16 @@
 package org.fore;
 
-
 /*
  * OpenGL ES support  GL10.GL_TEXTURE_2D
  */
-public interface ITexture extends IResource {
+public interface ITexture extends IResource
+{
 
 	/*
 	 * to be passed to prepare_texture;
 	 */
-	public enum TextureUsage {
+	public enum TextureUsage
+	{
 		TU_RENDERTARGET, TU_AUTOMIPMAP, TU_DEFAULT
 	};
 

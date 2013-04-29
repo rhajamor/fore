@@ -1,17 +1,50 @@
 package org.fore;
 
-public interface ISubMesh extends IResource, IMovableObject {
+import javax.media.opengl.GL;
 
-	public void setParent(IMesh mesh);
+public interface ISubMesh extends IResource, IMovableObject
+{
+	public enum RenderingMode
+	{
+		RM_POINTS(GL.GL_POINTS),
+		RM_LINES(GL.GL_LINES),
+		RM_LINE_LOOP(GL.GL_LINE_LOOP),
+		RM_LINE_STRIP(GL.GL_LINE_STRIP),
+		RM_TRIANGLES(GL.GL_TRIANGLES),
+		RM_TRIANGLE_STRIP(GL.GL_TRIANGLE_STRIP),
+		RM_TRIANGLE_FAN(GL.GL_TRIANGLE_FAN),
+		// OpenGL 3.0 render modes.
+		RM_QUADS(0x0007),
+		RM_QUADS_STRIP(0x0008),
+		RM_POLYGON(0x0009);
 
-	public IMesh getParent();
+		private final int value;
 
-	public void setVertexData(IVertexData data);
+		private RenderingMode(int value)
+		{
+			this.value = value;
+		}
 
-	public IVertexData getVertexData();
+		public int value()
+		{
+			return this.value;
+		}
+	};
 
-	public void setIndexData(IIndexData indexData);
+	void setParent(IMesh mesh);
 
-	public IIndexData getIndexData();
+	IMesh getParent();
+
+	void setVertexData(IVertexData data);
+
+	IVertexData getVertexData();
+
+	void setIndexData(IIndexData indexData);
+
+	IIndexData getIndexData();
+
+	RenderingMode getRenderingMode();
+
+	void setRenderingMode(RenderingMode renderingMode);
 
 }

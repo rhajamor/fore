@@ -105,16 +105,4 @@ public class Color implements IColor {
 	public String toString() {
 		return "r: " + r + "  g: " + g + " b: " + b + " a: " + a;
 	}
-
-	public static void main(String[] args) {
-		long v = 3415343103L;
-		Color c = new Color(v);
-		IColor c2 = new Color();
-		c2.set(c.r, c.g, c.b, c.a);
-		System.out.println(c.toString());
-		short[] sv = c.asShortValues();
-		System.out.println("R:" + sv[0] + " G:" + sv[1] + " B:" + sv[2] + " A:"
-				+ sv[3]);
-		System.err.println(c.asRGBA());
-	}
 }

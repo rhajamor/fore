@@ -2,7 +2,8 @@ package org.fore;
 
 import javax.vecmath.Vector3f;
 
-public interface ICamera extends IMovableObject, IResource, INode {
+public interface ICamera extends IMovableObject, IResource, INode
+{
 
 	public void setLookAt(Vector3f lookAt);
 

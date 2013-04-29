@@ -3,43 +3,28 @@ package org.fore.impl;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-import javax.media.opengl.GLBase;
-
 import org.fore.IData;
 
-public abstract class Data implements IData {
-	enum RenderingMode {
-
-		RM_POINTS(GLBase.GL_POINTS), RM_LINE_STRIP(GL10.GL_LINE_STRIP), RM_LINE_LOOP(
-				GL10.GL_LINE_LOOP), RM_LINES(GL10.GL_LINES), RM_TRIANGLE_STRIP(
-				GL10.GL_TRIANGLE_STRIP), RM_TRIANGLE_FAN(GL10.GL_TRIANGLE_FAN), RM_TRIANGLES(
-				GL10.GL_TRIANGLES);
-
-		private final int value;
-
-		private RenderingMode(int value) {
-			this.value = value;
-		}
-
-		public int value() {
-			return this.value;
-		}
-	};
-
-	protected Data() {
-		renderingMode = RenderingMode.RM_TRIANGLES;
-	}
-
-	protected RenderingMode renderingMode;
+public abstract class Data implements IData
+{
 	protected Buffer vertexBuffer;
 	protected Buffer indexBuffer;
 	protected Buffer textCoordBuffer;
 	protected Buffer colorBuffer;
-	protected Buffer normalBuffer;
+	protected Buffer normalsBuffer;
+	protected Buffer edgesBuffer;
+	protected boolean bound;
+
+	protected Data()
+	{
+
+	}
 
 	@Override
-	public final void setDataBuffer(DataType dataType, Buffer buffer) {
-		switch (dataType) {
+	public final void setDataBuffer(DataType dataType, Buffer buffer)
+	{
+		switch (dataType)
+		{
 		case DT_INDEX:
 			setIndexBuffer(buffer);
 			break;
@@ -59,25 +44,30 @@ public abstract class Data implements IData {
 	}
 
 	@Override
-	public final Buffer getDataBuffer(DataType dataType, BufferType bufferType) {
-		switch (dataType) {
+	public final Buffer getDataBuffer(DataType dataType, BufferType bufferType)
+	{
+		switch (dataType)
+		{
 		case DT_INDEX:
 			return getIndexBuffer(bufferType);
 		case DT_POSITION:
-			getVertexBuffer(bufferType);
+			return getVertexBuffer(bufferType);
 		case DT_TEXTURE_COORDINATES:
-			getTextCoordBuffer(bufferType);
+			return getTextCoordBuffer(bufferType);
 		case DT_NORMAL:
-			getNormalBuffer(bufferType);
+			return getNormalBuffer(bufferType);
 		case DT_COLOR:
-			getColorBuffer(bufferType);
+			return getColorBuffer(bufferType);
+
 		}
 		return null;
 	}
 
 	@Override
-	public final void clearDataBuffer(DataType dataType) {
-		switch (dataType) {
+	public final void clearDataBuffer(DataType dataType)
+	{
+		switch (dataType)
+		{
 		case DT_INDEX:
 			indexBuffer.clear();
 			break;
@@ -88,7 +78,7 @@ public abstract class Data implements IData {
 			textCoordBuffer.clear();
 			break;
 		case DT_NORMAL:
-			normalBuffer.clear();
+			normalsBuffer.clear();
 			break;
 		case DT_COLOR:
 			colorBuffer.clear();
@@ -102,8 +92,10 @@ public abstract class Data implements IData {
 	 * @param bufferType
 	 * @return a buffer with the specified type (cast it)
 	 */
-	private Buffer getBuffer(ByteBuffer buffer, BufferType bufferType) {
-		switch (bufferType) {
+	private Buffer getBuffer(ByteBuffer buffer, BufferType bufferType)
+	{
+		switch (bufferType)
+		{
 		case BT_FLOAT:
 			return buffer.asFloatBuffer();
 		case BT_BYTE:
@@ -120,51 +112,73 @@ public abstract class Data implements IData {
 		return null;
 	}
 
-	protected Buffer getVertexBuffer(BufferType bufferType) {
+	protected void prepareBuffer(int capacity, Buffer buffer)
+	{
+		if (buffer == null)
+			buffer = ByteBuffer.allocateDirect(capacity);
+		else
+		{
+			if (buffer.capacity() < capacity || buffer.capacity() > capacity)
+				buffer = ByteBuffer.allocateDirect(capacity);
+			else
+				buffer.clear();
+		}
+	}
+
+	protected Buffer getVertexBuffer(BufferType bufferType)
+	{
 		return getBuffer((ByteBuffer) vertexBuffer, bufferType);
 	}
 
-	protected void setVertexBuffer(Buffer vertexBuffer) {
+	protected void setVertexBuffer(Buffer vertexBuffer)
+	{
 		this.vertexBuffer = vertexBuffer;
 	}
 
-	protected Buffer getIndexBuffer(BufferType bufferType) {
+	protected Buffer getIndexBuffer(BufferType bufferType)
+	{
 		return getBuffer((ByteBuffer) indexBuffer, bufferType);
 	}
 
-	protected void setIndexBuffer(Buffer indexBuffer) {
+	protected void setIndexBuffer(Buffer indexBuffer)
+	{
 		this.indexBuffer = indexBuffer;
 	}
 
-	protected Buffer getTextCoordBuffer(BufferType bufferType) {
+	protected Buffer getTextCoordBuffer(BufferType bufferType)
+	{
 		return getBuffer((ByteBuffer) textCoordBuffer, bufferType);
 	}
 
-	protected void setTextCoordBuffer(Buffer textCoordBuffer) {
+	protected void setTextCoordBuffer(Buffer textCoordBuffer)
+	{
 		this.textCoordBuffer = textCoordBuffer;
 	}
 
-	protected Buffer getColorBuffer(BufferType bufferType) {
+	protected Buffer getColorBuffer(BufferType bufferType)
+	{
 		return getBuffer((ByteBuffer) colorBuffer, bufferType);
 	}
 
-	protected void setColorBuffer(Buffer colorBuffer) {
+	protected void setColorBuffer(Buffer colorBuffer)
+	{
 		this.colorBuffer = colorBuffer;
 	}
 
-	protected Buffer getNormalBuffer(BufferType bufferType) {
-		return getBuffer((ByteBuffer) normalBuffer, bufferType);
+	protected Buffer getNormalBuffer(BufferType bufferType)
+	{
+		return getBuffer((ByteBuffer) normalsBuffer, bufferType);
 	}
 
-	protected void setNormalBuffer(Buffer normalBuffer) {
-		this.normalBuffer = normalBuffer;
+	protected void setNormalBuffer(Buffer normalBuffer)
+	{
+		this.normalsBuffer = normalBuffer;
+	}
+	
+	@Override
+	public boolean isBound()
+	{
+		return bound;
 	}
 
-	public RenderingMode getRenderingMode() {
-		return renderingMode;
-	}
-
-	public void setRenderingMode(RenderingMode renderingMode) {
-		this.renderingMode = renderingMode;
-	}
 }

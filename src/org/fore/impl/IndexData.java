@@ -1,65 +1,90 @@
 package org.fore.impl;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.media.opengl.GLBase;
+import javax.media.opengl.GL;
 
 import org.fore.IIndexData;
 
-public class IndexData extends Data implements IIndexData {
+public class IndexData extends Data implements IIndexData
+{
 
-	private List<Integer> indices;
+	private int numIndices;
+	private int bindID;
 
-	public IndexData() {
-		indices = new ArrayList<Integer>();
+	public IndexData()
+	{
+
+	}
+
+	public IndexData(int indices[])
+	{
+		setIndices(indices);
+
+	}
+
+	public IndexData(int numIndices)
+	{
+		prepareBuffer(numIndices * 4, indexBuffer);
 	}
 
 	@Override
-	public void bind(GLBase gl) throws BufferError {
-		if (indices.isEmpty())
-			throw new BufferError("No index data found !");
-		indexBuffer = ByteBuffer.allocateDirect(indices.size() * 2);
-		((ByteBuffer) indexBuffer).order(ByteOrder.nativeOrder());
-		ShortBuffer indBuffer = ((ByteBuffer) indexBuffer).asShortBuffer();
-		indBuffer.put(getIndices());
-		indBuffer.position(0);
-		/*
-		 * this is do rendering
-		 */
-		 gl.glDrawElements(renderingMode.value(), getNumIndices(),
-				GL10.GL_UNSIGNED_SHORT, indBuffer);
+	public void bind(GL gl) throws BufferError
+	{
+		// if (numIndices == 0)
+		// throw new BufferError("No index data found !");
+		// indexBuffer = ByteBuffer.allocateDirect(indices.size() * 2);
+		// ((ByteBuffer) indexBuffer).order(ByteOrder.nativeOrder());
+		// ShortBuffer indBuffer = ((ByteBuffer) indexBuffer).asShortBuffer();
+		// indBuffer.put(getIndices());
+		// indBuffer.position(0);
+		// /*
+		// * this is do rendering
+		// */
+		// gl.glDrawElements(renderingMode.value(), getNumIndices(),
+		// GL.GL_UNSIGNED_SHORT, indBuffer);
 	}
 
 	@Override
-	public int getNumIndices() {
-		return indices.size();
+	public void unBind(GL gl) throws BufferError
+	{
+		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public short[] getIndices() {
-		short[] data = new short[indices.size()];
-		System.arraycopy(indices.toArray(), 0, data, 0, indices.size());
-		return data;
+	public void setIndices(int[] indices)
+	{
+		prepareBuffer(indices.length * 4, indexBuffer);
+		for (int index : indices)
+			addIndex(index);
+
+		indexBuffer.flip();
+
 	}
 
 	@Override
-	public void addIndex(int index) {
-		indices.add(index);
+	public int getNumIndices()
+	{
+		return numIndices;
+	}
+
+	public int[] getIndices()
+	{
+		int[] indices = new int[numIndices];
+		((ByteBuffer) indexBuffer).asIntBuffer().get(indices);
+		return indices;
 	}
 
 	@Override
-	public void addIndex(short index) {
-		indices.add((int) index);
+	public void addIndex(int index)
+	{
+		((ByteBuffer) indexBuffer).putInt(index);
 	}
 
 	@Override
-	public void destroy() {
+	public void destroy()
+	{
 		clearDataBuffer(DataType.DT_INDEX);
-		indices.clear();
 		indexBuffer = null;
 	}
 }
