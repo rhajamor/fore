@@ -7,83 +7,80 @@ import javax.vecmath.Vector3f;
 
 import org.fore.ILight.LightType;
 
-public interface ISceneManager extends IResourceManager {
-	
-	public ILight createLight(String name);
+public interface ISceneManager extends IResourceManager
+{
 
-	public ILight createLight(String name, LightType lightType);
 
-	public ILight createLight(String name, Vector3f pos, Vector3f dir);
+	ILight createLight(String name);
 
-	public ILight createLight(String name, LightType lightType, Vector3f pos,
+	ILight createLight(String name, LightType lightType);
+
+	ILight createLight(String name, Vector3f pos, Vector3f dir);
+
+	ILight createLight(String name, LightType lightType, Vector3f pos,
 			Vector3f dir);
 
-	public ILight createLight(String name, LightType lightType, Vector3f pos,
+	ILight createLight(String name, LightType lightType, Vector3f pos,
 			Vector3f dir, IColor color);
 
-	public ILight getLight(String name);
+	ILight getLight(String name);
 
-	public List<ILight> getLightsList();
+	List<ILight> getLightsList();
 
-	public List<ILight> getLightsByType(LightType lightType);
-
-	//
-	public ICamera createCamera(String name);
-
-	public ICamera createCamera(String name, Quat4f o, Vector3f p);
-
-	public ICamera createCamera(String name, Quat4f o, Vector3f pos, Vector3f d);
-
-	public ICamera getCamera(String name);
-
-	public List<ICamera> getCamerasList();
+	List<ILight> getLightsByType(LightType lightType);
 
 	//
-	public IMovableObject createMovableObject(String name, String type);
+	ICamera createCamera(String name);
 
-	public IMovableObject createMovableObject(String name, String type,
-			Quat4f o, Vector3f p);
+	ICamera createCamera(String name, Quat4f o, Vector3f p);
 
-	public IMovableObject createMovableObject(String name, String type,
-			Quat4f o, Vector3f p, Vector3f s);
+	ICamera createCamera(String name, Quat4f o, Vector3f pos, Vector3f d);
 
-	public IMovableObject getMovableObject(String name);
+	ICamera getCamera(String name);
 
-	public List<IMovableObject> getMovableObjectsList();
-
-	public List<IMovableObject> getMovableObjectsList(String type);
+	List<ICamera> getCamerasList();
 
 	//
-	public INode createNode(String name);
+	IMovableObject createMovableObject(String name, String type);
 
-	public INode createNode(String name, INode parent, Quat4f o, Vector3f p);
-
-	public INode createNode(String name, INode parent);
-
-	public INode getNode(String name);
-
-	public List<INode> getNodesList();
-
-	//
-	public IRenderable createRenderable(String name);
-
-	public IRenderable createRenderable(String name, INode parent, Quat4f o,
+	IMovableObject createMovableObject(String name, String type, Quat4f o,
 			Vector3f p);
 
-	public IRenderable createRenderable(String name, INode parent);
+	IMovableObject createMovableObject(String name, String type, Quat4f o,
+			Vector3f p, Vector3f s);
 
-	public IRenderable getRenderable(String name);
+	IMovableObject getMovableObject(String name);
 
-	public List<IRenderable> getRenderablesList();
+	List<IMovableObject> getMovableObjectsList();
 
-	public void destroyResource(IResource resource);
+	List<IMovableObject> getMovableObjectsList(String type);
 
-	public void destroyResource(String name);
+	//
+	INode createNode(String name);
 
-	public void destroyResourcesByType(String type);
+	INode createNode(String name, INode parent, Quat4f o, Vector3f p);
 
-	public void render();
+	INode createNode(String name, INode parent);
 
-	public void startRendering();
+	INode getNode(String name);
+
+	List<INode> getNodesList();
+
+	//
+	IRenderable createRenderable(String name);
+
+	IRenderable createRenderable(String name, INode parent, Quat4f o, Vector3f p);
+
+	IRenderable createRenderable(String name, INode parent);
+
+	IRenderable getRenderable(String name);
+
+	List<IRenderable> getRenderablesList();
+
+	void destroyResource(IResource resource);
+
+	void destroyResource(String name);
+
+	void destroyResourcesByType(String type);
 
 }

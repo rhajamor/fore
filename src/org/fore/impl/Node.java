@@ -12,7 +12,6 @@ import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 import org.fore.INode;
-import org.fore.IMovableObject.TransformationType;
 
 public class Node extends MovableObject implements INode
 {
@@ -41,6 +40,8 @@ public class Node extends MovableObject implements INode
 	@Override
 	public void setParent(INode parent)
 	{
+		if (this.parent != null)
+			this.parent.removeChild(this.name);
 		this.parent = parent;
 	}
 
@@ -54,12 +55,14 @@ public class Node extends MovableObject implements INode
 	public void addChild(INode child)
 	{
 		children.put(child.getName(), child);
+		child.setParent(this);
 	}
 
 	@Override
 	public void addChildren(Collection<INode> children)
 	{
-		children.addAll(children);
+		for (INode node : children)
+			addChild(node);
 	}
 
 	@Override
@@ -70,18 +73,22 @@ public class Node extends MovableObject implements INode
 
 	public void removeChild(String name)
 	{
-		children.remove(name);
+		INode child = children.remove(name);
+		if (child != null)
+			child.setParent(null);
+
 	}
 
 	public void removeAllChildren()
 	{
-		children.clear();
+		for (String key : children.keySet())
+			removeChild(key);
 	}
 
 	@Override
 	public void removeChild(INode object)
 	{
-		children.remove(object.getName());
+		removeChild(object.getName());
 	}
 
 	@Override

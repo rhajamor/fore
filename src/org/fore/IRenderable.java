@@ -1,6 +1,6 @@
 package org.fore;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GLBase;
 
 public interface IRenderable extends IMovableObject, IResource, INode {
 
@@ -18,6 +18,6 @@ public interface IRenderable extends IMovableObject, IResource, INode {
 
 	public boolean isLoaded();
 	
-	void render(GL gl);
+	void render(GLBase gl);
 
 }
