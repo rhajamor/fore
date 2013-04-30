@@ -4,6 +4,7 @@ import java.nio.Buffer;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
+import javax.media.opengl.GLBase;
 import javax.media.opengl.fixedfunc.GLPointerFunc;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
@@ -100,7 +101,7 @@ public class Renderable extends Node implements IRenderable
 	}
 
 	@Override
-	public void render(GL gl)
+	public void render(GLBase gl)
 	{
 		if (visible)
 		{
@@ -142,15 +143,15 @@ public class Renderable extends Node implements IRenderable
 					if (indexData.getNumIndices() > 0)
 					{
 						// draw elements
-						gl.glDrawElements(subMesh.getRenderingMode().value(),
-								vertexData.getNumVertices(),
+						((GL) gl).glDrawElements(subMesh.getRenderingMode()
+								.value(), vertexData.getNumVertices(),
 								GL.GL_UNSIGNED_BYTE, indexData.getDataBuffer(
 										DataType.DT_INDEX, BufferType.BT_BYTE));
 
 					} else
 					{
-						gl.glDrawArrays(subMesh.getRenderingMode().value(), 0,
-								vertexData.getNumVertices());
+						((GL) gl).glDrawArrays(subMesh.getRenderingMode()
+								.value(), 0, vertexData.getNumVertices());
 					}
 
 					glFunc.glDisableClientState(GLPointerFunc.GL_VERTEX_ARRAY);
