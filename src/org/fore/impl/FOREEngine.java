@@ -11,6 +11,7 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GLBase;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
+import org.fore.IConfig;
 import org.fore.IFOREEngine;
 import org.fore.IRenderable;
 import org.fore.IResourceManager;
@@ -41,7 +42,7 @@ public class FOREEngine implements IFOREEngine
 	 * @see org.fore.IFOREEngine#start()
 	 */
 	@Override
-	public boolean start()
+	public boolean start(IConfig config)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -70,7 +71,7 @@ public class FOREEngine implements IFOREEngine
 		// clear buffers
 		renderSystem.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		((GLMatrixFunc) renderSystem).glLoadIdentity();
-		
+
 		Iterator<IRenderable> renderables = renderQueue.iterator();
 		while (renderables.hasNext())
 			renderables.next().render(getRenderSystem());

@@ -38,9 +38,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.glu.GLU;
+
+import com.jogamp.opengl.cg.CGcontext;
+import com.jogamp.opengl.cg.CGparameter;
+import com.jogamp.opengl.cg.CGprogram;
+import com.jogamp.opengl.cg.CgGL;
 
 /**
  * cgGL_vertex_example: simple demo of Nvidia CgGL API. Based upon C version
@@ -198,7 +207,7 @@ public class cgGL_vertex_example implements GLEventListener
     try {
       Program = CgGL.cgCreateProgramFromStream(
         Context, CgGL.CG_SOURCE,
-        getClass().getClassLoader().getResourceAsStream("demos/cg/runtime_ogl/cgGL_vertex_example.cg"),
+        getClass().getClassLoader().getResourceAsStream("org/fore/primitifs/cgGL_vertex_example.cg"),
         profile, null, null);
     } catch (IOException e) {
       throw new RuntimeException("Error loading Cg vertex program", e);
