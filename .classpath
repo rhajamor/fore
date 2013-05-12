@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gluegen-junit"/>
-	<classpathentry excluding="net/" kind="src" path="gluegen-java"/>
-	<classpathentry kind="src" path="newt-classes"/>
-	<classpathentry kind="src" path="nativewindowgensrc-classes"/>
-	<classpathentry kind="src" path="nativewindow-classes"/>
-	<classpathentry kind="src" path="gensrc-classes"/>
-	<classpathentry kind="src" path="jogl-classes"/>
 	<classpathentry kind="lib" path="lib/vecmath.jar" sourcepath="/vecmath"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.8.2.v20130124-134944.jar"/>
 	<classpathentry kind="lib" path="lib/ant-junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-cg-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-cg.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/riadh/git/openGLEngine/jogl/gluegen/build/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="C:/Users/riadh/git/openGLEngine/jogl/gluegen/build/antlr.jar"/>

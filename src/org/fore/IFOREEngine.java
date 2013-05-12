@@ -18,7 +18,7 @@ public interface IFOREEngine
 	boolean start(IConfig config);
 
 	void stop();
-
+	
 	void register(IResourceManager manager);
 
 	void unRegister(IResourceManager manager);
