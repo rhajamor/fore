@@ -28,10 +28,10 @@ public class Vector
 		set(vector.xyz);
 	}
 
-//	public <T extends Number> Vector(T... xyz)
-//	{
-//		set(xyz);
-//	}
+	// public <T extends Number> Vector(T... xyz)
+	// {
+	// set(xyz);
+	// }
 
 	public Vector(float... xyz)
 	{
@@ -123,11 +123,46 @@ public class Vector
 	public float getAngle(Vector second)
 	{
 		float modAB = (len() * second.len());
-		return (float) Math.acos(dot(second) / modAB > 0 ? modAB : 1);
+		if (modAB == 0)
+			throw new IllegalArgumentException("zero vector");
+		return (float) Math.acos(dot(second) / modAB);
+	}
+//FIXME
+	public Vector project(Vector v)
+	{
+		if (v.len() == 0 || len() == 0)
+			throw new IllegalArgumentException("zero vector");
+
+		return v.mul(v.dot(this) / (len() * len()));
 	}
 
 	//
-	// public abstract T cross(Vector<T> second);
+	// public Vector cross(Vector second)
+	// {
+	// if (second.xyz.length != xyz.length)
+	// throw new UnsupportedOperationException();
+	// int size = xyz.length;
+	// Vector result = 0;
+	// if (size == 2)
+	// result = m.m[0] * m.m[3] - m.m[2] * m.m[1];
+	// else
+	// for (int i = 0; i < size; i++)
+	// {
+	// float x = 1, p = 1;
+	// for (int j = 0; j < size; j++)
+	// {
+	// int v = (j * size + j) + (i * size);
+	// v = (v >= size * size) ? v - (size * size) : v;
+	// int a = j * size + size - (j + 1) + (i * size);
+	// a = (a >= size * size) ? a - (size * size) : a;
+	// p *= m.m[v];
+	// x *= m.m[a];
+	// }
+	// result += p;
+	// result -= x;
+	// }
+	// }
+
 	//
 	/**
 	 * 
@@ -171,14 +206,14 @@ public class Vector
 		this.xyz = Arrays.copyOf(xyz, xyz.length);
 	}
 
-//	public <T extends Number> void set(T... values)
-//	{
-//		this.xyz = new float[values.length];
-//		for (int i = 0; i < values.length; i++)
-//		{
-//			this.xyz[i] = (Float) values[i];
-//		}
-//	}
+	// public <T extends Number> void set(T... values)
+	// {
+	// this.xyz = new float[values.length];
+	// for (int i = 0; i < values.length; i++)
+	// {
+	// this.xyz[i] = (Float) values[i];
+	// }
+	// }
 
 	@Override
 	public boolean equals(Object obj)
@@ -191,4 +226,14 @@ public class Vector
 		return false;
 	}
 
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(xyz);
+	}
+
+	public static void main(String[] args)
+	{
+		System.out.println(new Vector(-4, 1).project(new Vector(1, 2)));
+	}
 }
