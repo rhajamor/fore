@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipse.graphics</groupId>
+	<artifactId>org.eclipse.graphics.fore</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Free OpenGL Rendering Engine</name>
+	<description>Free OpenGL Rendering Engine</description>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.javolution</groupId>
+			<artifactId>javolution-core-java</artifactId>
+			<version>6.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt-main</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all-main</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.jogamp.jocl</groupId> -->
+		<!-- <artifactId>jocl-main</artifactId> -->
+		<!-- <version>2.0.2</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jogamp.joal</groupId> -->
+		<!-- <artifactId>joal-main</artifactId> -->
+		<!-- <version>2.0.2</version> -->
+		<!-- </dependency> -->
+	</dependencies>
+	<repositories>
+		<repository><!-- Gives access to javolution snapshots -->
+			<id>java.net-Public</id>
+			<name>Maven Java Net Snapshots</name>
+			<url>https://maven.java.net/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+</project>

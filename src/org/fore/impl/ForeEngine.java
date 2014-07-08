@@ -12,7 +12,7 @@ import javax.media.opengl.GLBase;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.fore.IConfig;
-import org.fore.IFOREEngine;
+import org.fore.IForeEngine;
 import org.fore.IRenderable;
 import org.fore.IResourceManager;
 
@@ -20,20 +20,28 @@ import org.fore.IResourceManager;
  * @author riadh
  * 
  */
-public class FOREEngine implements IFOREEngine
-{
+public class ForeEngine implements IForeEngine {
 	private Queue<IRenderable> renderQueue;
 
 	private GL renderSystem;
 
+	private boolean started;
+
+	private static IForeEngine instance;
+
 	/**
 	 * 
 	 */
-	public FOREEngine()
-	{
+	private ForeEngine() {
 
 		renderQueue = new LinkedBlockingQueue<IRenderable>();
 
+	}
+
+	public static synchronized IForeEngine getInstance() {
+		if (instance == null)
+			instance = new ForeEngine();
+		return instance;
 	}
 
 	/*
@@ -42,8 +50,7 @@ public class FOREEngine implements IFOREEngine
 	 * @see org.fore.IFOREEngine#start()
 	 */
 	@Override
-	public boolean start(IConfig config)
-	{
+	public boolean start(IConfig config) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -54,8 +61,7 @@ public class FOREEngine implements IFOREEngine
 	 * @see org.fore.IFOREEngine#stop()
 	 */
 	@Override
-	public void stop()
-	{
+	public void stop() {
 		// TODO Auto-generated method stub
 
 	}
@@ -66,12 +72,10 @@ public class FOREEngine implements IFOREEngine
 	 * @see org.fore.IFOREEngine#renderOnce()
 	 */
 	@Override
-	public void renderOnce()
-	{
+	public void renderOnce() {
 		// clear buffers
 		renderSystem.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		((GLMatrixFunc) renderSystem).glLoadIdentity();
-
 		Iterator<IRenderable> renderables = renderQueue.iterator();
 		while (renderables.hasNext())
 			renderables.next().render(getRenderSystem());
@@ -83,35 +87,36 @@ public class FOREEngine implements IFOREEngine
 	 * @see org.fore.IFOREEngine#startRendering()
 	 */
 	@Override
-	public void startRendering()
-	{
+	public void startRendering() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void register(IResourceManager manager)
-	{
+	public void register(IResourceManager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unRegister(IResourceManager manager)
-	{
+	public void unRegister(IResourceManager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Queue<IRenderable> getRenderingQueue()
-	{
+	public Queue<IRenderable> getRenderingQueue() {
 		return renderQueue;
 	}
 
 	@Override
-	public GLBase getRenderSystem()
-	{
+	public GLBase getRenderSystem() {
 		return renderSystem;
+	}
+
+	@Override
+	public IConfig getConfig() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,0 +1,6 @@
+void main(out float3 output,
+            uniform float3 vect1,
+            uniform float3 vect2)
+{
+    output = mul(vect1, vect2);
+}

@@ -5,6 +5,8 @@ package org.fore.math;
 
 import java.util.Arrays;
 
+import org.fore.utils.Assert;
+
 /**
  * The <code>Matrix</code> class is used to handle n x n matrices such as 2 x 2,
  * 3 x 3, 4 x 4 etc ... <br/>
@@ -13,16 +15,14 @@ import java.util.Arrays;
  * @author riadh
  * 
  */
-public class Matrix
-{
+public class Matrix {
 
 	public float m[];
 
 	/**
 	 * 
 	 */
-	public Matrix(int size)
-	{
+	public Matrix(int size) {
 		m = new float[size * size];
 
 	}
@@ -30,38 +30,32 @@ public class Matrix
 	/**
 	 * 
 	 */
-	public Matrix(float[] m)
-	{
+	public Matrix(float[] m) {
 		set(m);
 	}
 
 	/**
 	 * 
 	 */
-	public Matrix(Matrix mx)
-	{
+	public Matrix(Matrix mx) {
 		set(mx);
 	}
 
 	/**
 	 * 
 	 */
-	public Matrix()
-	{
+	public Matrix() {
 		// 3x3 matrix
 		m = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	}
 
-	public void set(Matrix m)
-	{
+	public void set(Matrix m) {
 		set(m.m);
 	}
 
-	public void set(float m[])
-	{
+	public void set(float m[]) {
 		double size = Math.sqrt(m.length);
-		if (size == 0 || size % (int) size > 0)
-			throw new UnsupportedOperationException();
+		Assert.notTrue(size == 0 || size % (int) size > 0);
 		this.m = Arrays.copyOf(m, m.length);
 	}
 
@@ -71,12 +65,10 @@ public class Matrix
 	 *            : 0..N-1
 	 * @return
 	 */
-	public float[] getColumn(int c)
-	{
+	public float[] getColumn(int c) {
 		int size = (int) Math.sqrt(m.length);
 		float[] col = new float[size];
-		for (int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			col[i] = m[i * size + c];
 		}
 		return col;
@@ -88,86 +80,71 @@ public class Matrix
 	 *            : 0..N-1
 	 * @return
 	 */
-	public float[] getRow(int row)
-	{
+	public float[] getRow(int row) {
 		int offset = (int) Math.sqrt(m.length);
 		return Arrays.copyOfRange(m, row * offset, row * offset + offset);
 	}
 
-	public Matrix mul(Matrix m1)
-	{
+	public Matrix mul(Matrix m1) {
 		int sizeM1 = (int) Math.sqrt(m1.m.length);
 		int size = (int) Math.sqrt(m.length);
 		if (size != sizeM1)
 			throw new UnsupportedOperationException(
 					"Handles only N x N matrices");
 		Matrix result = new Matrix(size);
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				result.m[j * size + i] = m[j * size + i] * m1.m[i * size + j];
 			}
 		}
 		return result;
 	}
 
-	public Vector mul(Vector v)
-	{
+	public Vector mul(Vector v) {
 		int mxn = (int) Math.sqrt(m.length);
 		if (v.xyz.length != mxn)
 			throw new UnsupportedOperationException();
 		Vector result = new Vector(mxn);
 
-		for (int i = 0; i < mxn; i++)
-		{
-			for (int j = 0; j < mxn; j++)
-			{
+		for (int i = 0; i < mxn; i++) {
+			for (int j = 0; j < mxn; j++) {
 				result.xyz[i] += m[i * mxn + j] * v.xyz[j];
 			}
 		}
 		return result;
 	}
 
-	public void negate()
-	{
+	public void negate() {
 		mul(-1);
 	}
 
-	public void mul(float f)
-	{
+	public void mul(float f) {
 		multiply(this, f);
 	}
 
-	public static void multiply(Matrix in, float f)
-	{
+	public static void multiply(Matrix in, float f) {
 		for (int i = 0; i < in.m.length; i++)
 			in.m[i] = in.m[i] * f;
 	}
 
-	public float det()
-	{
+	public float det() {
 		return detOf(this);
 	}
 
-	public void transpose()
-	{
+	public void transpose() {
 		transposeOf(this);
 	}
 
-	//TODO check for 4 x 4
-	public static float detOf(Matrix m)
-	{
+	// TODO check for 4 x 4
+	public static float detOf(Matrix m) {
 		int size = (int) Math.sqrt(m.m.length);
 		float result = 0;
 		if (size == 2)
 			result = m.m[0] * m.m[3] - m.m[2] * m.m[1];
 		else
-			for (int i = 0; i < size; i++)
-			{
+			for (int i = 0; i < size; i++) {
 				float x = 1, p = 1;
-				for (int j = 0; j < size; j++)
-				{
+				for (int j = 0; j < size; j++) {
 					int v = (j * size + j) + (i * size);
 					v = (v >= size * size) ? v - (size * size) : v;
 					int a = j * size + size - (j + 1) + (i * size);
@@ -181,15 +158,13 @@ public class Matrix
 		return result;
 	}
 
-	public static void transposeOf(Matrix m)
-	{
-		int r, k, index, size = (int) Math.sqrt(m.m.length);;
+	public static void transposeOf(Matrix m) {
+		int r, k, index, size = (int) Math.sqrt(m.m.length);
+		;
 		float x;
-		for (int j = 0; j < size; j++)
-		{
+		for (int j = 0; j < size; j++) {
 			for (int i = (index = (j * size + j)) + 1; i < index + (size - j)
-					&& i < m.m.length; i++)
-			{
+					&& i < m.m.length; i++) {
 				r = i / size;
 				k = i % size;
 				x = m.m[i];
@@ -199,24 +174,19 @@ public class Matrix
 		}
 	}
 
-	public static Matrix getIdentity(int size)
-	{
+	public static Matrix getIdentity(int size) {
 		Matrix identity = new Matrix(size);
-		for (int i = 0; i < size; i++)
-		{
+		for (int i = 0; i < size; i++) {
 			identity.m[i * size + i] = 1f;
 		}
 		return identity;
 
 	}
 
-	public void setTranslation(Vector t)
-	{
+	public void setTranslation(Vector t) {
 		int offset = (int) Math.sqrt(m.length);
-		if (offset > 2 && t.xyz.length == (offset - 1))
-		{
-			for (int j = 0, i = (m.length - offset); j < t.xyz.length; j++, i++)
-			{
+		if (offset > 2 && t.xyz.length == (offset - 1)) {
+			for (int j = 0, i = (m.length - offset); j < t.xyz.length; j++, i++) {
 				m[i] = t.xyz[j];
 			}
 		} else
@@ -224,14 +194,11 @@ public class Matrix
 
 	}
 
-	public Vector getTranslation()
-	{
+	public Vector getTranslation() {
 		int offset = (int) Math.sqrt(m.length);
-		if (offset > 2)
-		{
+		if (offset > 2) {
 			Vector t = new Vector(new float[offset - 1]);
-			for (int j = 0, i = (m.length - offset); j < t.xyz.length; j++, i++)
-			{
+			for (int j = 0, i = (m.length - offset); j < t.xyz.length; j++, i++) {
 				t.xyz[j] = m[i];
 			}
 			return t;
@@ -240,60 +207,49 @@ public class Matrix
 
 	}
 
-	public void setRotation(Matrix m)
-	{
+	public void setRotation(Matrix m) {
 
 	}
 
-	public Matrix getRotation()
-	{
+	public Matrix getRotation() {
 		throw new UnsupportedOperationException();
 
 	}
 
-	public void setScale(Vector scale)
-	{
+	public void setScale(Vector scale) {
 
 	}
 
-	public Vector getScale()
-	{
+	public Vector getScale() {
 		throw new UnsupportedOperationException();
 	}
 
-	public Quaternion extractQuaternion()
-	{
+	public Quaternion extractQuaternion() {
 		return Matrix.extractQuaternion(this);
 	}
 
-	public static Quaternion extractQuaternion(Matrix m)
-	{
+	public static Quaternion extractQuaternion(Matrix m) {
 		throw new UnsupportedOperationException();
 	}
 
-	public static boolean areEquals(Matrix m1, Matrix m2)
-	{
+	public static boolean areEquals(Matrix m1, Matrix m2) {
 		return Arrays.equals(m1.m, m2.m);
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof Matrix)
-		{
+	public boolean equals(Object obj) {
+		if (obj instanceof Matrix) {
 			return areEquals(this, (Matrix) obj);
 		}
 		return super.equals(obj);
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException
-	{
+	protected Object clone() throws CloneNotSupportedException {
 		return new Matrix(m);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		// Matrix m1 = new Matrix(new float[] { 1, 0, -1, 6, 4, 6, 3, 9, 8 });
 
 		// // Matrix m2 = new Matrix(2);
