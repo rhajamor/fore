@@ -11,19 +11,22 @@ import javax.media.opengl.GLBase;
  * @author riadh
  * 
  */
-public interface IFOREEngine
-{
+public interface IForeEngine {
+
+
 	Queue<IRenderable> getRenderingQueue();
 
 	boolean start(IConfig config);
 
 	void stop();
-	
+
 	void register(IResourceManager manager);
 
 	void unRegister(IResourceManager manager);
 
 	void renderOnce();
+
+	IConfig getConfig();
 
 	void startRendering();
 
