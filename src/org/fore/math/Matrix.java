@@ -10,12 +10,13 @@ import org.fore.utils.Assert;
 /**
  * The <code>Matrix</code> class is used to handle n x n matrices such as 2 x 2,
  * 3 x 3, 4 x 4 etc ... <br/>
+ * The keyword <code>strictfp</code> is used to ensure portability on floating point calculation between all plateforms.
  * This class is part of the math library of the <b>FORE</b> engine.
  * 
  * @author riadh
  * 
  */
-public class Matrix {
+public strictfp class Matrix {
 
 	public float m[];
 
