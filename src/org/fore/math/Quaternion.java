@@ -4,10 +4,11 @@
 package org.fore.math;
 
 /**
+ * The keyword <code>strictfp</code> is used to ensure portability on floating point calculation between all plateforms.
  * @author riadh
  *
  */
-public class Quaternion
+public strictfp class Quaternion
 {
 
 	/**
