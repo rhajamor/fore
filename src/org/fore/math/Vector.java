@@ -12,10 +12,11 @@ import org.fore.impl.ForeEngine;
 import static org.fore.utils.Assert.*;
 
 /**
+ * The keyword <code>strictfp</code> is used to ensure portability on floating point calculation between all plateforms.
  * @author riadh
  * 
  */
-public class Vector {
+public strictfp class Vector {
 
 	protected float xyz[];
 	private byte size;
