@@ -19,12 +19,12 @@ import static org.fore.utils.Assert.*;
 public strictfp class Vector {
 
 	protected float xyz[];
-	private byte size;
+	private int size;
 	private boolean useGpuMath;
 
 	public Vector(int size) {
-		notTrue(size == 0);
-		this.size = (byte) size;
+		notTrue(size <= 0);
+		this.size = size;
 		xyz = new float[this.size];
 		useGpuMath = ForeEngine.getInstance().getConfig().useGPUComputing();
 	}
@@ -39,19 +39,18 @@ public strictfp class Vector {
 
 	public Vector(float... xyz) {
 		set(xyz);
-		this.size = (byte) xyz.length;
+		this.size = xyz.length;
 		useGpuMath = ForeEngine.getInstance().getConfig().useGPUComputing();
 	}
 
 	// TODO review this
 	protected Vector ensure(Vector in) {
-		if (in.xyz != null
-				&& (in.xyz.length == xyz.length || in.xyz.length >= xyz.length))
+		notTrue(in == null,"Argument can not be null");
+		notTrue(in.xyz == null,"Argument can not be null");
+		if (in.xyz.length == xyz.length || in.xyz.length > xyz.length)
 			return in;
 		Vector copy = null;
-		if (in.xyz == null) {
-			copy = new Vector(Arrays.copyOf(xyz, xyz.length));
-		} else if (in.xyz.length < xyz.length) {
+		if (in.xyz.length < xyz.length) {
 			copy = new Vector(Arrays.copyOf(in.xyz, xyz.length));
 			Arrays.fill(copy.xyz, in.xyz.length - 1, copy.xyz.length, 0);
 		}
@@ -126,6 +125,8 @@ public strictfp class Vector {
 
 	// FIXME
 	public Vector project(Vector v) {
+		notTrue(v == null, "Null vector");
+		notTrue(v.xyz == null, "Null vector");
 		float len = len();
 		float vLen = v.len();
 		notTrue(vLen == 0 || len == 0, "Zero length vector");
@@ -201,6 +202,8 @@ public strictfp class Vector {
 	public boolean equals(Object obj) {
 		if (obj instanceof Vector) {
 			return Arrays.equals(xyz, ((Vector) obj).xyz);
+		}else if(obj instanceof float[]){
+			return Arrays.equals(xyz, (float[]) obj);
 		}
 		return false;
 	}
