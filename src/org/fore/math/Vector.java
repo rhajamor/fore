@@ -133,32 +133,25 @@ public strictfp class Vector {
 		return v.mul(v.dot(this) / (len * len));
 	}
 
-	//
-	// public Vector cross(Vector second)
-	// {
-	// if (second.xyz.length != xyz.length)
-	// throw new UnsupportedOperationException();
-	// int size = xyz.length;
-	// Vector result = 0;
-	// if (size == 2)
-	// result = m.m[0] * m.m[3] - m.m[2] * m.m[1];
-	// else
-	// for (int i = 0; i < size; i++)
-	// {
-	// float x = 1, p = 1;
-	// for (int j = 0; j < size; j++)
-	// {
-	// int v = (j * size + j) + (i * size);
-	// v = (v >= size * size) ? v - (size * size) : v;
-	// int a = j * size + size - (j + 1) + (i * size);
-	// a = (a >= size * size) ? a - (size * size) : a;
-	// p *= m.m[v];
-	// x *= m.m[a];
-	// }
-	// result += p;
-	// result -= x;
-	// }
-	// }
+
+	public Vector cross(Vector second) {
+		if (second.xyz.length != xyz.length)
+			throw new UnsupportedOperationException();
+		int size = xyz.length;
+		if (size != 2 || size != 3)
+			throw new UnsupportedOperationException();
+		Vector result = 0;
+		if (size == 2)
+			result[0] = xyz[1] * second.xyz[0] -  xyz[0] * second.xyz[1];
+		else
+		{
+			result.xyz[0] = xyz[1] * second.xyz[2] -  xyz[2] * second.xyz[1];
+			result.xyz[1] = xyz[2] * second.xyz[0] -  xyz[0] * second.xyz[2];
+			result.xyz[2] = xyz[0] * second.xyz[1] -  xyz[1] * second.xyz[0];
+		}
+		return result;
+	}
+
 
 	//
 	/**
