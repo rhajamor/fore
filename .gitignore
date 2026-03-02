@@ -1,6 +1,40 @@
-*.class
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
 
-# Package Files #
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled
+*.class
 *.jar
 *.war
 *.ear
+target/
+bin/
+out/
+
+# Logs
+*.log
+
+# Native libraries
+*.dll
+*.so
+*.dylib
+
+# Secrets
+.env
