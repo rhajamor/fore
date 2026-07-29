@@ -10,6 +10,11 @@ import org.fore.mesh.VertexLayout;
 
 import java.util.*;
 
+/**
+ * Container for a scene graph, lights, and entities. Manages the node hierarchy,
+ * shared meshes, light list, and provides factory methods for creating entities
+ * and lights.
+ */
 public class Scene {
 
     private final String name;

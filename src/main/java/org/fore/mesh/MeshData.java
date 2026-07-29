@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
+/** CPU-side vertex and index data builder. Accumulates positions, normals, UVs, tangents, and triangle indices. */
 public class MeshData {
 
     private final List<Vector3f> positions = new ArrayList<>();

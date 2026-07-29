@@ -15,6 +15,11 @@ import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/**
+ * Core engine class managing the main loop lifecycle. Initializes the window,
+ * render system, camera, and active scene, then runs the update/render loop
+ * until the window closes. Configured via Quarkus {@code fore.*} properties.
+ */
 @ApplicationScoped
 @Unremovable
 public class Engine {

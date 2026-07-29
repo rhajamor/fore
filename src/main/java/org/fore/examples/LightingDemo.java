@@ -6,6 +6,7 @@ import org.fore.scene.Entity;
 import org.fore.scene.Scene;
 import org.joml.Vector3f;
 
+/** Interior demo scene with multiple colored point lights, a spotlight, and pillars demonstrating complex light interactions. */
 public class LightingDemo implements ExampleScene {
 
     @Override

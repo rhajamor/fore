@@ -7,6 +7,7 @@ import org.fore.scene.Entity;
 import org.fore.scene.Scene;
 import org.joml.Vector3f;
 
+/** 7x7 grid of spheres demonstrating the full range of metallic and roughness values across the color spectrum. */
 public class PBRShowcase implements ExampleScene {
 
     @Override

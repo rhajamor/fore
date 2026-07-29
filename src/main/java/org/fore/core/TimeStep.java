@@ -1,5 +1,6 @@
 package org.fore.core;
 
+/** Tracks frame timing: delta time between frames, FPS, and frame count. */
 public class TimeStep {
 
     private long lastTime;

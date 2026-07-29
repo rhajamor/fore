@@ -5,6 +5,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+/** Perspective camera with configurable FOV, near/far planes, and aspect ratio. Computes view and projection matrices. */
 public class Camera {
 
     private final Vector3f position = new Vector3f(0, 2, 5);

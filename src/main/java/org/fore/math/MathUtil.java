@@ -3,6 +3,7 @@ package org.fore.math;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+/** Math utilities supplementing JOML: clamping, interpolation, and other common 3D math helpers. */
 public final class MathUtil {
 
     public static final float PI = (float) Math.PI;

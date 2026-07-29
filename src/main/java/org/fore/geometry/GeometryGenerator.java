@@ -5,6 +5,11 @@ import org.fore.math.MathUtil;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+/**
+ * Procedural mesh generators for built-in shapes. All generators produce
+ * {@link org.fore.mesh.MeshData} with positions, normals, texture coordinates,
+ * and tangents. Available shapes: box, sphere, plane, torus, cylinder, cone.
+ */
 public final class GeometryGenerator {
 
     private GeometryGenerator() {}

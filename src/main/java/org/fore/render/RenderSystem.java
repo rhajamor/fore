@@ -15,6 +15,11 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL41.*;
 
+/**
+ * Three-pass OpenGL render pipeline: shadow map pass (depth from directional light),
+ * PBR geometry pass (Cook-Torrance BRDF to HDR framebuffer), and post-process pass
+ * (ACES tone mapping + gamma correction).
+ */
 public class RenderSystem implements AutoCloseable {
 
     private static final int SHADOW_MAP_SIZE = 2048;

@@ -2,6 +2,7 @@ package org.fore.render;
 
 import static org.lwjgl.opengl.GL41.*;
 
+/** OpenGL framebuffer object wrapper for off-screen rendering (HDR target and shadow map). */
 public class Framebuffer implements AutoCloseable {
 
     private int fbo;

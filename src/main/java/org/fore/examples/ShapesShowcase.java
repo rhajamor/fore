@@ -6,6 +6,7 @@ import org.fore.scene.Entity;
 import org.fore.scene.Scene;
 import org.joml.Vector3f;
 
+/** Demo scene displaying all built-in geometry types with various metallic materials (copper, gold, silver, chrome). */
 public class ShapesShowcase implements ExampleScene {
 
     @Override
