@@ -3,6 +3,8 @@ plugins {
     id("io.quarkus")
 }
 
+version = "0.1.0"
+
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
@@ -62,6 +64,18 @@ java {
     }
 }
 
+tasks.withType<Javadoc> {
+    options {
+        this as StandardJavadocDocletOptions
+        addStringOption("Xdoclint:none", "-quiet")
+        windowTitle = "FORE Engine ${project.version} API"
+        docTitle = "FORE Engine ${project.version}"
+        header = "<b>FORE Engine</b>"
+        links("https://docs.oracle.com/en/java/javase/21/docs/api/")
+        links("https://javadoc.io/doc/org.joml/joml/1.10.8/")
+    }
+}
+
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.addAll(listOf("-parameters"))
@@ -82,7 +96,7 @@ tasks.register<Exec>("runEngine") {
         execArgs.add("-XstartOnFirstThread")
     }
     execArgs.add("-jar")
-    execArgs.add(layout.buildDirectory.file("fore-engine-unspecified-runner.jar").get().asFile.absolutePath)
+    execArgs.add(layout.buildDirectory.file("fore-engine-${project.version}-runner.jar").get().asFile.absolutePath)
 
     args(execArgs)
 }
