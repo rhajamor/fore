@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static org.lwjgl.opengl.GL41.*;
 
+/** Compiles and links GLSL vertex/fragment shaders. Provides typed uniform setters for matrices, vectors, and scalars. */
 public class ShaderProgram implements AutoCloseable {
 
     private int programId;

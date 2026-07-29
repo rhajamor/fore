@@ -4,6 +4,11 @@ import org.fore.shader.ShaderProgram;
 import org.fore.texture.Texture2D;
 import org.joml.Vector3f;
 
+/**
+ * PBR material defining surface appearance. Properties: albedo color, metallic,
+ * roughness, ambient occlusion, and emissive — each as a scalar/vector with an
+ * optional texture map override.
+ */
 public class Material {
 
     private Vector3f albedo = new Vector3f(0.8f, 0.8f, 0.8f);

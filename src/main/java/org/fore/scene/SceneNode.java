@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/** A node in the scene graph hierarchy. Holds a local transform and computes world transforms from parent chain. */
 public class SceneNode {
 
     private final String name;

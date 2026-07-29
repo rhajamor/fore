@@ -4,6 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+/** 3D transform holding position, rotation (quaternion), and scale. Computes the local-to-parent matrix. */
 public class Transform {
 
     private final Vector3f position = new Vector3f();

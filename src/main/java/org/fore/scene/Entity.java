@@ -4,6 +4,7 @@ import org.fore.material.Material;
 import org.fore.mesh.Mesh;
 import org.joml.Matrix4f;
 
+/** A visible object in the scene: a mesh paired with a material, attached to a scene node. */
 public class Entity {
 
     private final String name;

@@ -4,6 +4,7 @@ import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/** Per-frame keyboard and mouse input state. Tracks key presses, mouse position, scroll, and button state. */
 public class InputSystem {
 
     private final long windowHandle;

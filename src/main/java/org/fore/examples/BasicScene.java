@@ -6,6 +6,7 @@ import org.fore.scene.Entity;
 import org.fore.scene.Scene;
 import org.joml.Vector3f;
 
+/** Simple demo scene with a sphere, cube, torus, and cylinder under directional and point lighting. */
 public class BasicScene implements ExampleScene {
 
     @Override

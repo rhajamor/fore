@@ -4,6 +4,7 @@ import org.fore.shader.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+/** Scene light supporting directional, point, and spot types with color, intensity, range, and shadow-casting control. */
 public class Light {
 
     public enum Type {

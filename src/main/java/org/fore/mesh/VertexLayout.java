@@ -6,6 +6,7 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL41.*;
 
+/** Defines the vertex attribute layout (position, normal, texcoord, tangent) and configures VAO attribute pointers. */
 public class VertexLayout {
 
     public enum Attribute {

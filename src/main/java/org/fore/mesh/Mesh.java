@@ -2,6 +2,7 @@ package org.fore.mesh;
 
 import static org.lwjgl.opengl.GL41.*;
 
+/** GPU-resident mesh using VAO/VBO/EBO. Uploads vertex data from {@link MeshData} and issues indexed draw calls. */
 public class Mesh implements AutoCloseable {
 
     private int vao;

@@ -10,6 +10,7 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+/** GLFW window wrapper. Creates and configures the OS window, tracks framebuffer size, and manages swap/poll. */
 public class Window implements AutoCloseable {
 
     private long handle;

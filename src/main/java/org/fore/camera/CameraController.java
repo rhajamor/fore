@@ -5,6 +5,7 @@ import org.fore.window.InputSystem;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/** Input-driven camera controller supporting orbit mode (rotate/pan/zoom) and first-person fly mode (WASD + mouse look). */
 public class CameraController {
 
     public enum Mode { ORBIT, FLY }

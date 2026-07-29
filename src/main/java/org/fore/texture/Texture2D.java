@@ -8,6 +8,7 @@ import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL41.*;
 import static org.lwjgl.stb.STBImage.*;
 
+/** OpenGL 2D texture. Supports creation from raw pixel data and procedural generation (checkerboard default). */
 public class Texture2D implements AutoCloseable {
 
     private int id;
