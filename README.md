@@ -1,6 +1,27 @@
 # FORE — Free OpenGL Rendering Engine
 
-A modern, Ogre3D-inspired 3D rendering engine built with Java 21, Quarkus, LWJGL 3, and JOML.
+[![CI](https://github.com/rhajamor/fore/actions/workflows/ci.yml/badge.svg)](https://github.com/rhajamor/fore/actions/workflows/ci.yml)
+[![License: EPL-1.0](https://img.shields.io/badge/License-EPL--1.0-blue.svg)](LICENSE)
+[![Java 21](https://img.shields.io/badge/Java-21-orange.svg)](https://adoptium.net/)
+
+A modern, Ogre3D-inspired 3D rendering engine built with Java 21, LWJGL 3, and JOML.
+
+<!-- TODO: Replace with actual screenshot after Phase 4 -->
+
+## Why FORE?
+
+| | FORE | Raw LWJGL | jMonkeyEngine | LibGDX |
+|---|---|---|---|---|
+| **PBR out of the box** | Yes (Cook-Torrance) | No (write your own) | Plugin-based | No |
+| **Learning curve** | Low — clean API | Very high | Medium | Medium |
+| **Code you can read** | ~3k lines, 14 packages | N/A | Large codebase | Large codebase |
+| **Modern Java** | Java 21, Quarkus CDI | Any | Java 11+ | Java 11+ |
+| **Shadow mapping** | Built-in PCF | DIY | Built-in | DIY |
+
+FORE is designed to be **small enough to understand completely** while being
+**capable enough to render real PBR scenes**. If you want to learn how a
+3D engine works by reading its source, or you need a lightweight Java
+rendering core to build on, FORE is for you.
 
 ## Features
 
@@ -24,6 +45,13 @@ A modern, Ogre3D-inspired 3D rendering engine built with Java 21, Quarkus, LWJGL
 
 On macOS, GLFW requires the `-XstartOnFirstThread` JVM argument. This is configured
 automatically in the Gradle run tasks.
+
+## Documentation
+
+- [Wiki — Tutorials & Guides](https://github.com/rhajamor/fore/wiki)
+- [API Reference (Javadoc)](https://rhajamor.github.io/fore/)
+- [Contributing](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Quick Start
 
