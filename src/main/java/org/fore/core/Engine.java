@@ -93,6 +93,7 @@ public class Engine {
             case "basic" -> new BasicScene();
             case "lighting" -> new LightingDemo();
             case "shapes" -> new ShapesShowcase();
+            case "textured" -> new TexturedScene();
             default -> new PBRShowcase();
         };
 
@@ -149,6 +150,7 @@ public class Engine {
         if (input.isKeyPressed(GLFW_KEY_2)) switchScene("pbr");
         if (input.isKeyPressed(GLFW_KEY_3)) switchScene("lighting");
         if (input.isKeyPressed(GLFW_KEY_4)) switchScene("shapes");
+        if (input.isKeyPressed(GLFW_KEY_5)) switchScene("textured");
 
         if (input.isKeyPressed(GLFW_KEY_TAB)) {
             CameraController.Mode current = cameraController.getMode();
