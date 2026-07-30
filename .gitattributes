@@ -1,0 +1,4 @@
+# Binary assets
+*.png binary
+*.jpg binary
+*.hdr binary
