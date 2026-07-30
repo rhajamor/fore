@@ -40,6 +40,25 @@ public class Texture2D implements AutoCloseable {
         }
     }
 
+    public static Texture2D fromFileLinear(String path) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer w = stack.mallocInt(1);
+            IntBuffer h = stack.mallocInt(1);
+            IntBuffer channels = stack.mallocInt(1);
+
+            stbi_set_flip_vertically_on_load(true);
+            ByteBuffer data = stbi_load(path, w, h, channels, 4);
+            if (data == null) {
+                throw new RuntimeException("Failed to load texture: " + path + " - " + stbi_failure_reason());
+            }
+
+            int texId = createTexture(w.get(0), h.get(0), data, GL_RGBA8);
+            stbi_image_free(data);
+
+            return new Texture2D(texId, w.get(0), h.get(0));
+        }
+    }
+
     public static Texture2D fromColor(float r, float g, float b, float a) {
         ByteBuffer pixel = ByteBuffer.allocateDirect(4);
         pixel.put((byte) (r * 255));

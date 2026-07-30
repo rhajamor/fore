@@ -105,7 +105,7 @@ float attenuate(float distance, float range) {
 void main() {
     vec3 albedo = material.albedo;
     if (material.useAlbedoMap == 1) {
-        albedo = pow(texture(materialAlbedoMap, TexCoord).rgb, vec3(2.2));
+        albedo = texture(materialAlbedoMap, TexCoord).rgb;
     }
 
     float metallic = material.metallic;
