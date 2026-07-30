@@ -27,6 +27,7 @@ FORE is a modern, Ogre3D-inspired 3D rendering engine built with Java 21, LWJGL 
 | [[Camera-System]] | Control the orbit and fly cameras |
 | [[Scene-Graph]] | Build hierarchical node trees |
 | [[Geometry-Generator]] | Generate built-in shapes (box, sphere, torus, etc.) |
+| [[Working-with-Textures]] | Load and apply PBR texture maps |
 | [[Architecture-Overview]] | Understand the render pipeline and package layout |
 | [[Configuration-Reference]] | All `fore.*` configuration properties |
 | [API Reference](https://rhajamor.github.io/fore/) | Full Javadoc |
