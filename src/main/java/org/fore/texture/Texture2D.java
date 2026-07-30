@@ -15,7 +15,7 @@ public class Texture2D implements AutoCloseable {
     private int width;
     private int height;
 
-    private Texture2D(int id, int width, int height) {
+    Texture2D(int id, int width, int height) {
         this.id = id;
         this.width = width;
         this.height = height;
