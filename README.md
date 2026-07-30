@@ -73,9 +73,9 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 # Or run directly:
 # macOS:
-java -XstartOnFirstThread -jar build/fore-engine-unspecified-runner.jar
+java -XstartOnFirstThread -jar build/fore-engine-0.1.0-runner.jar
 # Linux/Windows:
-java -jar build/fore-engine-unspecified-runner.jar
+java -jar build/fore-engine-0.1.0-runner.jar
 ```
 
 ## Controls
