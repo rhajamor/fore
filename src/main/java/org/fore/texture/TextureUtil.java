@@ -2,7 +2,6 @@ package org.fore.texture;
 
 import org.fore.material.Material;
 import org.lwjgl.system.MemoryStack;
-import org.joml.Vector3f;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -26,6 +25,12 @@ public class TextureUtil {
                 if (metalData != null) stbi_image_free(metalData);
                 if (roughData != null) stbi_image_free(roughData);
                 throw new RuntimeException("Failed to load metallic/roughness textures");
+            }
+
+            if (mW.get(0) != rW.get(0) || mH.get(0) != rH.get(0)) {
+                stbi_image_free(metalData);
+                stbi_image_free(roughData);
+                throw new RuntimeException("Metallic and roughness textures must have the same dimensions");
             }
 
             int width = mW.get(0);
