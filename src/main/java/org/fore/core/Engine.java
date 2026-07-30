@@ -85,7 +85,7 @@ public class Engine {
         activeScene.setActiveCamera(camera);
 
         LOG.info("FORE Engine initialized. Scene: " + sceneName);
-        LOG.info("Controls: LMB=orbit, MMB=pan, Scroll=zoom, 1-4=scenes, G=grid, ESC=quit");
+        LOG.info("Controls: LMB=orbit, MMB=pan, Scroll=zoom, 1-5=scenes, G=grid, ESC=quit");
     }
 
     private Scene createScene(String name) {
