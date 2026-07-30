@@ -5,7 +5,9 @@ import org.fore.material.Material;
 import org.fore.mesh.Mesh;
 import org.fore.scene.Entity;
 import org.fore.scene.Scene;
+import org.fore.texture.TextureUtil;
 import org.joml.Vector3f;
+import java.io.File;
 
 /** 7x7 grid of spheres demonstrating the full range of metallic and roughness values across the color spectrum. */
 public class PBRShowcase implements ExampleScene {
@@ -54,6 +56,22 @@ public class PBRShowcase implements ExampleScene {
                 new Material(new Vector3f(0.95f, 0.93f, 0.88f), 1.0f, 0.1f));
         centerPiece.getNode().setPosition(0, 2.5f, 0);
         centerPiece.getNode().rotate(0.5f, 1, 0, 0);
+
+        // Textured sphere row above the grid
+        String[] texSets = {"rusted-iron", "brushed-aluminum", "wood-planks", "stone", "concrete", "fabric"};
+        float texStartX = -(texSets.length - 1) * 2.0f / 2.0f;
+
+        for (int i = 0; i < texSets.length; i++) {
+            String dir = "assets/textures/" + texSets[i];
+            Material texMat;
+            if (new File(dir).exists()) {
+                texMat = TextureUtil.loadPBRMaterial(dir);
+            } else {
+                texMat = new Material(new Vector3f(0.5f, 0.5f, 0.5f), 0.0f, 0.5f);
+            }
+            Entity texSphere = scene.createEntity("tex_" + texSets[i], sphereMesh, texMat);
+            texSphere.getNode().setPosition(texStartX + i * 2.0f, 4.5f, 0);
+        }
     }
 
     private static Vector3f hsvToRgb(float h, float s, float v) {
