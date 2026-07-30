@@ -41,6 +41,9 @@ dependencies {
     implementation(enforcedPlatform("$quarkusPlatformGroupId:$quarkusPlatformArtifactId:$quarkusPlatformVersion"))
     implementation("io.quarkus:quarkus-arc")
 
+    implementation("jakarta.json:jakarta.json-api:2.1.3")
+    implementation("org.eclipse.parsson:parsson:1.1.6")
+
     implementation(platform("org.lwjgl:lwjgl-bom:$lwjglVersion"))
     implementation("org.lwjgl:lwjgl")
     implementation("org.lwjgl:lwjgl-glfw")
