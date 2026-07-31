@@ -105,6 +105,10 @@ public class CameraController {
         this.orbitDistance = MathUtil.clamp(distance, minOrbitDistance, maxOrbitDistance);
     }
 
+    public void setOrbitPitch(float radians) {
+        this.orbitPitch = MathUtil.clamp(radians, MathUtil.toRadians(-89), MathUtil.toRadians(89));
+    }
+
     public void setMoveSpeed(float speed) { this.moveSpeed = speed; }
     public void setLookSensitivity(float sensitivity) { this.lookSensitivity = sensitivity; }
     public Mode getMode() { return mode; }

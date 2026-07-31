@@ -10,10 +10,15 @@ import org.fore.render.RenderSystem;
 import org.fore.scene.Scene;
 import org.fore.window.InputSystem;
 import org.fore.window.Window;
+import org.lwjgl.stb.STBImageWrite;
 
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Core engine class managing the main loop lifecycle. Initializes the window,
@@ -76,8 +81,12 @@ public class Engine {
 
         cameraController = new CameraController(camera, input);
         cameraController.setMode(CameraController.Mode.ORBIT);
-        cameraController.setOrbitDistance(12.0f);
-        cameraController.setOrbitTarget(0, 1, 0);
+        float orbitDist = Float.parseFloat(System.getProperty("fore.camera.distance", "12"));
+        float orbitY = Float.parseFloat(System.getProperty("fore.camera.target.y", "1"));
+        float orbitPitch = Float.parseFloat(System.getProperty("fore.camera.pitch", "0"));
+        cameraController.setOrbitDistance(orbitDist);
+        cameraController.setOrbitTarget(0, orbitY, 0);
+        if (orbitPitch != 0) cameraController.setOrbitPitch(orbitPitch);
 
         timeStep = new TimeStep();
 
@@ -113,6 +122,9 @@ public class Engine {
     }
 
     private void mainLoop() {
+        String screenshotPath = System.getProperty("fore.screenshot");
+        int screenshotDelay = Integer.getInteger("fore.screenshot.delay", 120);
+
         while (!window.shouldClose()) {
             timeStep.update();
             input.update();
@@ -132,10 +144,37 @@ public class Engine {
             window.swapBuffers();
             window.pollEvents();
 
+            if (screenshotPath != null && timeStep.getFrameCount() == screenshotDelay) {
+                captureFramebuffer(screenshotPath);
+                LOG.info("Screenshot saved to " + screenshotPath);
+                glfwSetWindowShouldClose(window.getHandle(), true);
+            }
+
             if (timeStep.getFrameCount() % 60 == 0) {
                 window.setTitle(String.format("%s — %.0f FPS", windowTitle, timeStep.getFps()));
             }
         }
+    }
+
+    private void captureFramebuffer(String path) {
+        int w = window.getFramebufferWidth();
+        int h = window.getFramebufferHeight();
+        int stride = w * 3;
+        ByteBuffer pixels = ByteBuffer.allocateDirect(stride * h).order(ByteOrder.nativeOrder());
+
+        glReadPixels(0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+        ByteBuffer flipped = ByteBuffer.allocateDirect(stride * h).order(ByteOrder.nativeOrder());
+        for (int row = 0; row < h; row++) {
+            int srcPos = (h - 1 - row) * stride;
+            pixels.position(srcPos);
+            pixels.limit(srcPos + stride);
+            flipped.put(pixels);
+        }
+        flipped.flip();
+
+        new File(path).getParentFile().mkdirs();
+        STBImageWrite.stbi_write_png(path, w, h, 3, flipped, stride);
     }
 
     private void handleInput() {
