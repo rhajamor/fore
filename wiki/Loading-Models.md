@@ -76,6 +76,7 @@ FORE ships with sample models from the [Khronos glTF Sample Assets](https://gith
 | Model | Format | Description |
 |-------|--------|-------------|
 | DamagedHelmet.glb | GLB | Classic PBR test model with detailed textures |
+| Lantern.glb | GLB | Detailed lantern model with multiple materials |
 
 Press **6** to view the Model Showcase scene.
 
