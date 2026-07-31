@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORE Engine — Free OpenGL Rendering Engine</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-surface: #161b22;
+            --bg-card: #1c2128;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.15);
+            --border: #30363d;
+            --gradient-start: #1a1b27;
+            --gradient-end: #0d1117;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+        }
+
+        nav .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        nav .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        nav .logo span { color: var(--accent); }
+
+        nav .links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav .links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav .links a:hover { color: var(--text); }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('images/hero.png') center/cover no-repeat;
+            filter: brightness(0.4) saturate(1.2);
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(13, 17, 23, 0.3) 0%,
+                rgba(13, 17, 23, 0.6) 60%,
+                var(--bg) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent), #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #79c0ff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--text-muted);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.9rem;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item .caption {
+            padding: 1rem 1.25rem;
+        }
+
+        .gallery-item .caption h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-item .caption p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .quickstart {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+
+        .quickstart h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .step code {
+            display: block;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 0.8rem;
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 0.82rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 4rem 0;
+        }
+
+        .tech-item {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .tech-item strong {
+            display: block;
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer .links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        footer .links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer .links a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            nav .links { display: none; }
+            .quickstart { padding: 2rem 1.5rem; }
+            section { padding: 4rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="inner">
+        <a href="#" class="logo"><span>FORE</span> Engine</a>
+        <ul class="links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#quickstart">Quick Start</a></li>
+            <li><a href="https://github.com/rhajamor/fore/wiki">Wiki</a></li>
+            <li><a href="https://github.com/rhajamor/fore">GitHub</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="badge">Java 21 &middot; OpenGL 4.1 &middot; PBR</div>
+        <h1>Real-Time <span>PBR Rendering</span> for Java</h1>
+        <p>A modern 3D rendering engine with physically-based materials, glTF model loading, and a clean scene graph. Built on LWJGL 3 and Quarkus.</p>
+        <div class="hero-actions">
+            <a href="#quickstart" class="btn btn-primary">Get Started</a>
+            <a href="https://github.com/rhajamor/fore" class="btn btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                View on GitHub
+            </a>
+        </div>
+    </div>
+</div>
+
+<section id="features">
+    <div class="section-title">
+        <h2>Built for Modern Rendering</h2>
+        <p>Everything you need to render beautiful 3D scenes with physically accurate materials</p>
+    </div>
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F3A8;</div>
+            <h3>PBR Materials</h3>
+            <p>Cook-Torrance BRDF with metallic-roughness workflow. Albedo, normal, metallic, roughness, and AO texture maps for photorealistic surfaces.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4E6;</div>
+            <h3>glTF 2.0 & OBJ Loading</h3>
+            <p>Load industry-standard glTF binary (.glb) and Wavefront OBJ models with full PBR material extraction and texture support.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4A1;</div>
+            <h3>Dynamic Lighting</h3>
+            <p>Directional and point lights with shadow mapping. HDR rendering pipeline with configurable tone mapping and exposure control.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F4D0;</div>
+            <h3>Scene Graph</h3>
+            <p>Hierarchical node system with entities, materials, and lights. Orbit and fly camera modes with smooth controls.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x26A1;</div>
+            <h3>Built on Quarkus</h3>
+            <p>Lightweight CDI container for dependency injection. Fast startup, low memory footprint, and clean lifecycle management.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1F527;</div>
+            <h3>Procedural Geometry</h3>
+            <p>Generate spheres, boxes, cylinders, planes, and tori with configurable subdivisions. UV-mapped and ready for texturing.</p>
+        </div>
+    </div>
+</section>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+    <div class="tech-stack">
+        <div class="tech-item"><strong>Java 21</strong>Virtual threads &amp; records</div>
+        <div class="tech-item"><strong>LWJGL 3.3.4</strong>OpenGL &amp; GLFW bindings</div>
+        <div class="tech-item"><strong>JOML 1.10.8</strong>Fast vector math</div>
+        <div class="tech-item"><strong>Quarkus 3.17</strong>CDI &amp; config</div>
+        <div class="tech-item"><strong>OpenGL 4.1</strong>Core profile</div>
+    </div>
+</div>
+
+<section id="gallery">
+    <div class="section-title">
+        <h2>See It in Action</h2>
+        <p>Real-time screenshots captured directly from the engine's OpenGL framebuffer</p>
+    </div>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="images/models-showcase.png" alt="glTF model loading with DamagedHelmet and Lantern">
+            <div class="caption">
+                <h4>glTF Model Loading</h4>
+                <p>DamagedHelmet and Lantern models with full PBR materials extracted from .glb files</p>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/textured-showcase.png" alt="PBR texture materials showcase">
+            <div class="caption">
+                <h4>PBR Texture Materials</h4>
+                <p>Concrete, marble, rock, wood, leather, and fabric with normal-mapped surfaces</p>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/lighting-showcase.png" alt="Dynamic multi-colored lighting">
+            <div class="caption">
+                <h4>Dynamic Lighting</h4>
+                <p>Multiple colored point lights with shadow mapping and HDR bloom</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="quickstart">
+    <div class="quickstart">
+        <h2>Quick Start</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                    <h4>Clone the repository</h4>
+                    <code>git clone https://github.com/rhajamor/fore.git<br>cd fore</code>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                    <h4>Build the engine</h4>
+                    <code>./gradlew quarkusBuild</code>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div>
+                    <h4>Run a demo scene</h4>
+                    <code>./gradlew runEngine</code>
+                    <p style="margin-top: 0.5rem;">Switch scenes with keys 1-6. Orbit with left mouse, pan with middle mouse, zoom with scroll.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="inner">
+        <p>FORE Engine &mdash; Free OpenGL Rendering Engine</p>
+        <ul class="links">
+            <li><a href="https://github.com/rhajamor/fore">Source</a></li>
+            <li><a href="https://github.com/rhajamor/fore/wiki">Documentation</a></li>
+            <li><a href="https://github.com/rhajamor/fore/issues">Issues</a></li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>

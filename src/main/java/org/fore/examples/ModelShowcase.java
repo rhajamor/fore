@@ -31,7 +31,7 @@ public class ModelShowcase implements ExampleScene {
 
         // Load second model (Lantern or Avocado)
         if (new File("assets/models/Lantern.glb").exists()) {
-            loadModel(scene, "assets/models/Lantern.glb", "lantern", xOffset, 0.05f, 0.0f);
+            loadModel(scene, "assets/models/Lantern.glb", "lantern", xOffset, 0.4f, 0.0f);
         } else if (new File("assets/models/Avocado.glb").exists()) {
             loadModel(scene, "assets/models/Avocado.glb", "avocado", xOffset, 30.0f, 1.5f);
         }
