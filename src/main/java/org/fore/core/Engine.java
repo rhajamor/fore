@@ -85,7 +85,7 @@ public class Engine {
         activeScene.setActiveCamera(camera);
 
         LOG.info("FORE Engine initialized. Scene: " + sceneName);
-        LOG.info("Controls: LMB=orbit, MMB=pan, Scroll=zoom, 1-5=scenes, G=grid, ESC=quit");
+        LOG.info("Controls: LMB=orbit, MMB=pan, Scroll=zoom, 1-6=scenes, G=grid, ESC=quit");
     }
 
     private Scene createScene(String name) {
@@ -94,6 +94,7 @@ public class Engine {
             case "lighting" -> new LightingDemo();
             case "shapes" -> new ShapesShowcase();
             case "textured" -> new TexturedScene();
+            case "models" -> new ModelShowcase();
             default -> new PBRShowcase();
         };
 
@@ -151,6 +152,7 @@ public class Engine {
         if (input.isKeyPressed(GLFW_KEY_3)) switchScene("lighting");
         if (input.isKeyPressed(GLFW_KEY_4)) switchScene("shapes");
         if (input.isKeyPressed(GLFW_KEY_5)) switchScene("textured");
+        if (input.isKeyPressed(GLFW_KEY_6)) switchScene("models");
 
         if (input.isKeyPressed(GLFW_KEY_TAB)) {
             CameraController.Mode current = cameraController.getMode();
