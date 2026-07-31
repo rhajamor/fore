@@ -296,7 +296,7 @@ public class GltfLoader {
             try {
                 File tmp = File.createTempFile("gltf_tex_", ext);
                 tmp.deleteOnExit();
-                ByteBuffer buf = buffers.get(bufIndex);
+                ByteBuffer buf = buffers.get(bufIndex).duplicate().order(ByteOrder.LITTLE_ENDIAN);
                 byte[] imgData = new byte[length];
                 buf.position(offset);
                 buf.get(imgData);
