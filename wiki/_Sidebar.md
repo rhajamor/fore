@@ -13,6 +13,7 @@
 - [[Scene-Graph]]
 - [[Geometry-Generator]]
 - [[Working-with-Textures]]
+- [[Loading-Models]]
 
 **Reference**
 - [[Architecture-Overview]]
